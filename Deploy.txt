@@ -1,0 +1,9 @@
+1. Deploy to Somee.com
+2. Connect to Database remote somee.com in SSMS
++ Attension Default Database
+3. Create script task from database local => run sql in remote connect
++ Remote Use Master
++ Change User Master to Use DatabaseName
+4. Use File Zilla to Update File Publish to Server Across FTP link
+Link FTP: ftp://elearning-hanh.somee.com/www.elearning-hanh.somee.com
+5. Change File WEb.config Connection string to 'connection string in somee.com'

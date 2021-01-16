@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBELearningModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBELearningEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Comments" EntityType="DBELearningModel.Comment" />
+    <EntitySet Name="Courses" EntityType="DBELearningModel.Course" />
+    <EntitySet Name="Documents" EntityType="DBELearningModel.Document" />
+    <EntitySet Name="Lectures" EntityType="DBELearningModel.Lecture" />
+    <EntitySet Name="Ratings" EntityType="DBELearningModel.Rating" />
+    <EntitySet Name="Roles" EntityType="DBELearningModel.Role" />
+    <EntitySet Name="StudentSubjects" EntityType="DBELearningModel.StudentSubject" />
+    <EntitySet Name="StudentTests" EntityType="DBELearningModel.StudentTest" />
+    <EntitySet Name="Subjects" EntityType="DBELearningModel.Subject" />
+    <EntitySet Name="TeacherSubjects" EntityType="DBELearningModel.TeacherSubject" />
+    <EntitySet Name="Users" EntityType="DBELearningModel.User" />
+    <AssociationSet Name="FK__Comment__Lecture__7B5B524B" Association="DBELearningModel.FK__Comment__Lecture__7B5B524B">
+      <End Role="Lecture" EntitySet="Lectures" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__Usernam__7A672E12" Association="DBELearningModel.FK__Comment__Usernam__7A672E12">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Rating__CourseId__38996AB5" Association="DBELearningModel.FK__Rating__CourseId__38996AB5">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subject_Course" Association="DBELearningModel.FK_Subject_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Subject" EntitySet="Subjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Document__Subject__300424B4" Association="DBELearningModel.FK__Document__Subject__300424B4">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Document" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Lecture__Subject__32E0915F" Association="DBELearningModel.FK__Lecture__Subject__32E0915F">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Lecture" EntitySet="Lectures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentCourse_User" Association="DBELearningModel.FK_StudentCourse_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="StudentSubject" EntitySet="StudentSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentSubject_Subject" Association="DBELearningModel.FK_StudentSubject_Subject">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="StudentSubject" EntitySet="StudentSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentTe__Subje__35BCFE0A" Association="DBELearningModel.FK__StudentTe__Subje__35BCFE0A">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="StudentTest" EntitySet="StudentTests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TeacherSu__Subje__403A8C7D" Association="DBELearningModel.FK__TeacherSu__Subje__403A8C7D">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="TeacherSubject" EntitySet="TeacherSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeacherSubject_User" Association="DBELearningModel.FK_TeacherSubject_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TeacherSubject" EntitySet="TeacherSubjects" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LectureId" Type="Int32" Nullable="false" />
+    <Property Name="ReplyId" Type="Int32" />
+    <NavigationProperty Name="Lecture" Relationship="DBELearningModel.FK__Comment__Lecture__7B5B524B" FromRole="Comment" ToRole="Lecture" />
+    <NavigationProperty Name="User" Relationship="DBELearningModel.FK__Comment__Usernam__7A672E12" FromRole="Comment" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LanguageId" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Benefits" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Requirements" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="TopHot" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Ratings" Relationship="DBELearningModel.FK__Rating__CourseId__38996AB5" FromRole="Course" ToRole="Rating" />
+    <NavigationProperty Name="Subjects" Relationship="DBELearningModel.FK_Subject_Course" FromRole="Course" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UrlDocument" Type="String" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Subject" Relationship="DBELearningModel.FK__Document__Subject__300424B4" FromRole="Document" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Lecture">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UrlVideo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TimeVideo" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="DBELearningModel.FK__Comment__Lecture__7B5B524B" FromRole="Lecture" ToRole="Comment" />
+    <NavigationProperty Name="Subject" Relationship="DBELearningModel.FK__Lecture__Subject__32E0915F" FromRole="Lecture" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Point" Type="Double" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Course" Relationship="DBELearningModel.FK__Rating__CourseId__38996AB5" FromRole="Rating" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="StudentSubject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ApproveName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="DBELearningModel.FK_StudentCourse_User" FromRole="StudentSubject" ToRole="User" />
+    <NavigationProperty Name="Subject" Relationship="DBELearningModel.FK_StudentSubject_Subject" FromRole="StudentSubject" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="StudentTest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileAnswer" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ReplyFile" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="Point" Type="Int32" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Subject" Relationship="DBELearningModel.FK__StudentTe__Subje__35BCFE0A" FromRole="StudentTest" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NumberStudent" Type="Int32" Nullable="false" />
+    <Property Name="MaxStudent" Type="Int32" Nullable="false" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Course" Relationship="DBELearningModel.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
+    <NavigationProperty Name="Documents" Relationship="DBELearningModel.FK__Document__Subject__300424B4" FromRole="Subject" ToRole="Document" />
+    <NavigationProperty Name="Lectures" Relationship="DBELearningModel.FK__Lecture__Subject__32E0915F" FromRole="Subject" ToRole="Lecture" />
+    <NavigationProperty Name="StudentSubjects" Relationship="DBELearningModel.FK_StudentSubject_Subject" FromRole="Subject" ToRole="StudentSubject" />
+    <NavigationProperty Name="StudentTests" Relationship="DBELearningModel.FK__StudentTe__Subje__35BCFE0A" FromRole="Subject" ToRole="StudentTest" />
+    <NavigationProperty Name="TeacherSubjects" Relationship="DBELearningModel.FK__TeacherSu__Subje__403A8C7D" FromRole="Subject" ToRole="TeacherSubject" />
+  </EntityType>
+  <EntityType Name="TeacherSubject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FinishTime" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Subject" Relationship="DBELearningModel.FK__TeacherSu__Subje__403A8C7D" FromRole="TeacherSubject" ToRole="Subject" />
+    <NavigationProperty Name="User" Relationship="DBELearningModel.FK_TeacherSubject_User" FromRole="TeacherSubject" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+    <Property Name="LinkAvata" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="DBELearningModel.FK__Comment__Usernam__7A672E12" FromRole="User" ToRole="Comment" />
+    <NavigationProperty Name="StudentSubjects" Relationship="DBELearningModel.FK_StudentCourse_User" FromRole="User" ToRole="StudentSubject" />
+    <NavigationProperty Name="TeacherSubjects" Relationship="DBELearningModel.FK_TeacherSubject_User" FromRole="User" ToRole="TeacherSubject" />
+  </EntityType>
+  <Association Name="FK__Comment__Lecture__7B5B524B">
+    <End Type="DBELearningModel.Lecture" Role="Lecture" Multiplicity="1" />
+    <End Type="DBELearningModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lecture">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="LectureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__Usernam__7A672E12">
+    <End Type="DBELearningModel.User" Role="User" Multiplicity="1" />
+    <End Type="DBELearningModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Rating__CourseId__38996AB5">
+    <End Type="DBELearningModel.Course" Role="Course" Multiplicity="1" />
+    <End Type="DBELearningModel.Rating" Role="Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subject_Course">
+    <End Type="DBELearningModel.Course" Role="Course" Multiplicity="1" />
+    <End Type="DBELearningModel.Subject" Role="Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subject">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Document__Subject__300424B4">
+    <End Type="DBELearningModel.Subject" Role="Subject" Multiplicity="1" />
+    <End Type="DBELearningModel.Document" Role="Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Lecture__Subject__32E0915F">
+    <End Type="DBELearningModel.Subject" Role="Subject" Multiplicity="1" />
+    <End Type="DBELearningModel.Lecture" Role="Lecture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lecture">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentCourse_User">
+    <End Type="DBELearningModel.User" Role="User" Multiplicity="1" />
+    <End Type="DBELearningModel.StudentSubject" Role="StudentSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="StudentSubject">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentSubject_Subject">
+    <End Type="DBELearningModel.Subject" Role="Subject" Multiplicity="1" />
+    <End Type="DBELearningModel.StudentSubject" Role="StudentSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentSubject">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentTe__Subje__35BCFE0A">
+    <End Type="DBELearningModel.Subject" Role="Subject" Multiplicity="1" />
+    <End Type="DBELearningModel.StudentTest" Role="StudentTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentTest">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TeacherSu__Subje__403A8C7D">
+    <End Type="DBELearningModel.Subject" Role="Subject" Multiplicity="1" />
+    <End Type="DBELearningModel.TeacherSubject" Role="TeacherSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherSubject">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeacherSubject_User">
+    <End Type="DBELearningModel.User" Role="User" Multiplicity="1" />
+    <End Type="DBELearningModel.TeacherSubject" Role="TeacherSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="TeacherSubject">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

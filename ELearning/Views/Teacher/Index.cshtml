@@ -1,0 +1,72 @@
+﻿@using ELearning.Handler
+@using ELearning.Models
+@using BELibrary.Entity
+@using PagedList.Mvc
+@model PagedList.IPagedList<User>
+@{
+    ViewBag.Title = L.T("Teacher");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var related = (List<Course>)ViewBag.Related ?? new List<Course>();
+}
+
+<!-- Start main-content -->
+<div class="main-content">
+    <!-- Section: inner-header -->
+    <section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="/Content/images/bg/bg3.jpg">
+        <div class="container pt-70 pb-20">
+            <!-- Section Content -->
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="title text-white">@L.T("Teacher")</h2>
+                        <ol class="breadcrumb text-left text-black mt-10">
+                            <li><a href="#">@L.T("Home")</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="team">
+        <div class="container">
+            <div class="row mtli-row-clearfix">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-xs-12 col-sm-6 col-md-3 sm-text-center mb-30 mb-sm-30">
+                        <div class="team-members maxwidth400">
+                            <div class="team-thumb">
+                                <img class="img-fullwidth" alt="" src="@item.LinkAvata">
+                            </div>
+                            <div class="team-bottom-part border-bottom-theme-color-2-2px bg-lighter border-1px text-center p-10 pt-20 pb-10">
+                                <h4 class="text-uppercase font-raleway font-weight-600 m-0">
+                                    <a class="text-theme-color-2" href="/#">
+                                        @item.FullName
+                                    </a>
+                                </h4>
+                                <h5 class="text-theme-color">@item.DateOfBirth.ToString("dd/MM/yyyy")</h5>
+                                <ul class="styled-icons icon-sm icon-dark icon-theme-colored">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <!-- Pagination -->
+                <div class="pagination-style1 clearfix text-right">
+                    @Html.PagedListPager(Model, page => "/" + "teacher" + "?page=" + page)
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- end main-content -->
+@section Scripts {
+
+}
+
