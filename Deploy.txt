@@ -7,3 +7,22 @@
 4. Use File Zilla to Update File Publish to Server Across FTP link
 Link FTP: ftp://elearning-hanh.somee.com/www.elearning-hanh.somee.com
 5. Change File WEb.config Connection string to 'connection string in somee.com'
+
+
+
+
+
+
+
+
+
+
+
+*** Start
++ Vs 2019
++ SSMS (Manager tool SQL server)
++ Configuration SSMS => Enable TCP/IP
++ Config server SSMS => allow
+  - Server Authenticate => SQL SERVER and window authentication mode
+  - Allow Remote connection to this server 
++ Security => Login, Can change password, server roles => public, Status => Grant, Enabled
