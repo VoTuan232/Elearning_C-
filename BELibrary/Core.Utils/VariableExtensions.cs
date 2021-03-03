@@ -310,7 +310,7 @@ namespace BELibrary.Utils
         {
             return new List<SelectListModel>() {
                 new SelectListModel{Key=1,Value="Quản trị" },
-                new SelectListModel{Key=2,Value="Giáo viê" },
+                new SelectListModel{Key=2,Value="Giáo viên" },
                 new SelectListModel{Key=3,Value="Học sinh" }
             };
         }

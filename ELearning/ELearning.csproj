@@ -1726,6 +1726,8 @@
     <Content Include="Content\css\style-main-rtl.css" />
     <Content Include="Content\css\style-main.css" />
     <Content Include="Content\css\utility-classes.css" />
+    <Content Include="Content\css\views\common.css" />
+    <Content Include="Content\css\views\login.css" />
     <Content Include="Content\fonts\fontawesome-webfont3295.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\Pe-icon-7-strokebb1d.svg" />

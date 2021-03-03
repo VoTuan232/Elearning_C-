@@ -17,7 +17,7 @@ namespace TaikaiPlus.Controllers
             {
                 var ourCourses = unitofwork.Courses.Query(x => x.Status).OrderByDescending(x => x.Id)
                     .Take(5)
-                    .ToList();
+                    .ToList(); 
                 ViewBag.OurCourses = ourCourses;
             }
             return View();

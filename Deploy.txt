@@ -4,8 +4,14 @@
 3. Create script task from database local => run sql in remote connect
 + Remote Use Master
 + Change User Master to Use DatabaseName
++ Connect Remote: 
+  - Server name: ElearningSomee.mssql.somee.com
+  - login: votuanbk232_SQLLogin_1
+  - password: mz5tof62wv
 4. Use File Zilla to Update File Publish to Server Across FTP link
 Link FTP: ftp://elearning-hanh.somee.com/www.elearning-hanh.somee.com
+Username: votuanbk232
+Password: Votuan232
 5. Change File WEb.config Connection string to 'connection string in somee.com'
 
 
