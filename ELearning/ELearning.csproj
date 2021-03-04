@@ -2365,6 +2365,8 @@
     <Content Include="Content\js\vertical-timeline\img\cd-icon-location.svg" />
     <Content Include="Content\js\vertical-timeline\img\cd-icon-movie.svg" />
     <Content Include="Content\js\vertical-timeline\img\cd-icon-picture.svg" />
+    <Content Include="Content\js\views\common.js" />
+    <Content Include="Content\js\views\login.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="FileUploads\files\2020-02-10_18-40-46.mp4" />

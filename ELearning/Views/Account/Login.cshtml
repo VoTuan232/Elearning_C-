@@ -43,7 +43,7 @@
                         <div class="row">
                             <div class="form-group col-md-12 required">
                                 <label for="form_password">@L.T("Password")</label>
-                                <input id="Password" name="form_password" class="form-control" type="password">
+                                <input id="Password" name="form_password" class="form-control prevent-max-length"  maxlength="16" type="password">
                             </div>
                         </div>
                         <div class="form-group pull-right mt-10">
@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="form-group col-md-6 required">
                                 <label for="form_name">@L.T("Name")</label>
-                                <input name="FullName" class="form-control" type="text" required>
+                                <input name="FullName" class="form-control" maxlength="51" type="text" required>
                             </div>
                             <div class="form-group col-md-6 required">
                                 <label for="form_gender">@L.T("Gender")</label>
@@ -84,7 +84,7 @@
                         <div class="row">
                             <div class="form-group col-md-6 required">
                                 <label for="form_choose_username">@L.T("Username")</label>
-                                <input id="form_choose_username" name="Username" class="form-control" type="text" required>
+                                <input id="form_choose_username" name="Username" class="form-control" maxlength="51" type="text" required>
                             </div>
                             <div class="form-group col-md-6 required">
                                 <label for="form_chooseDateOfBirth">@L.T("BirthDay")</label>
@@ -95,21 +95,21 @@
                         <div class="row">
                             <div class="form-group col-md-6 required">
                                 <label>@L.T("EmailAddress")</label>
-                                <input name="Email" class="form-control" type="email" required>
+                                <input name="Email" class="form-control" type="email" maxlength="51" required>
                             </div>
                             <div class="form-group col-md-6 required">
                                 <label>@L.T("Phone")</label>
-                                <input name="Phone" class="form-control" type="text">
+                                <input name="Phone" class="form-control" maxlength="11" type="text">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6 required">
                                 <label for="form_choose_password">@L.T("Password")</label>
-                                <input id="form_choose_password" name="Password" class="form-control" type="password" required>
+                                <input id="form_choose_password" name="Password" class="form-control" maxlength="16" type="password" required>
                             </div>
                             <div class="form-group col-md-6 required">
                                 <label>@L.T("RepeatPassword")</label>
-                                <input id="form_re_enter_password" name="RePassword" class="form-control" type="password" required>
+                                <input id="form_re_enter_password" name="RePassword" class="form-control" maxlength="16" type="password" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -127,4 +127,5 @@
 @section Scripts {
     <script src="~/Areas/Admin/lib/plugins/toastr/toastr.min.js"></script> 
     <script src="~/Scripts/login.client.js"></script>
+    <script src="~/Content/js/views/login.js"></script>
 }

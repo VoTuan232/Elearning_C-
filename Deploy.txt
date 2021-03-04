@@ -13,6 +13,7 @@ Link FTP: ftp://elearning-hanh.somee.com/www.elearning-hanh.somee.com
 Username: votuanbk232
 Password: Votuan232
 5. Change File WEb.config Connection string to 'connection string in somee.com'
+<add name="ELearningDBContext" connectionString="workstation id=ElearningSomee.mssql.somee.com;packet size=4096;user id=votuanbk232_SQLLogin_1;pwd=mz5tof62wv;data source=ElearningSomee.mssql.somee.com;persist security info=False;initial catalog=ElearningSomee" providerName="System.Data.SqlClient" />
 
 
 
