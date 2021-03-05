@@ -4535,22 +4535,22 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
     <File Include="bin/BELibrary.dll">
-      <publishTime>02/19/2021 20:36:16</publishTime>
+      <publishTime>03/04/2021 22:01:02</publishTime>
     </File>
     <File Include="bin/BELibrary.dll.config">
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
     <File Include="bin/BELibrary.pdb">
-      <publishTime>02/19/2021 20:36:16</publishTime>
+      <publishTime>03/04/2021 22:01:02</publishTime>
     </File>
     <File Include="bin/CKFinder.dll">
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
     <File Include="bin/ELearning.dll">
-      <publishTime>02/19/2021 20:36:17</publishTime>
+      <publishTime>03/04/2021 22:25:48</publishTime>
     </File>
     <File Include="bin/ELearning.pdb">
-      <publishTime>02/19/2021 20:36:17</publishTime>
+      <publishTime>03/04/2021 22:25:48</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>01/11/2021 10:06:30</publishTime>
@@ -5100,6 +5100,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Content/css/utility-classes.css">
       <publishTime>01/11/2021 10:06:30</publishTime>
+    </File>
+    <File Include="Content/css/views/common.css">
+      <publishTime>03/03/2021 23:16:28</publishTime>
+    </File>
+    <File Include="Content/css/views/login.css">
+      <publishTime>03/03/2021 22:48:22</publishTime>
     </File>
     <File Include="Content/css/ytplayer/ytp-regular.eot">
       <publishTime>01/11/2021 10:06:30</publishTime>
@@ -7081,6 +7087,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/js/vertical-timeline/img/cd-icon-picture.svg">
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
+    <File Include="Content/js/views/common.js">
+      <publishTime>03/04/2021 21:42:18</publishTime>
+    </File>
+    <File Include="Content/js/views/login.js">
+      <publishTime>03/04/2021 22:13:22</publishTime>
+    </File>
     <File Include="Content/PagedList.css">
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
@@ -7247,7 +7259,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>01/11/2021 10:06:30</publishTime>
+      <publishTime>03/04/2021 22:13:22</publishTime>
     </File>
     <File Include="Views/Course/Detail.cshtml">
       <publishTime>01/11/2021 10:06:30</publishTime>
@@ -7280,7 +7292,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>01/11/2021 10:06:30</publishTime>
+      <publishTime>03/04/2021 21:35:55</publishTime>
     </File>
     <File Include="Views/Shared/_PartialFooter.cshtml">
       <publishTime>01/11/2021 10:06:30</publishTime>
@@ -7319,7 +7331,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/11/2021 10:06:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/19/2021 20:39:28</publishTime>
+      <publishTime>03/04/2021 22:01:06</publishTime>
     </File>
   </ItemGroup>
 </Project>
