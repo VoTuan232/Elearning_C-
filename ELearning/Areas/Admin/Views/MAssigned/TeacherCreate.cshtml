@@ -35,7 +35,7 @@
     </ul>
     <!--Tabs Content-->
 
-    <form id="form">
+    <form id="form" class="form-custom">
         <div class="tab-content">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @if (ViewBag.isEdit)
@@ -52,13 +52,13 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="control-label">Giáo viên</label>
                                     @Html.DropDownList("Username", (SelectList)ViewBag.Users, "---Select---", new { @class = "form-control", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="control-label">Môn học</label>
                                     @Html.DropDownList("SubjectId", (SelectList)ViewBag.Subject, "---Select---", new { @class = "form-control", @required = "required" })
                                 </div>
@@ -66,13 +66,13 @@
                         </div>
                         <div class="row"> 
                             <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="control-label">Ngày bắt đầu</label>
                                     @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "date" } })
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="control-label">Ngày kết thúc</label>
                                     @Html.EditorFor(model => model.FinishTime, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "date" } })
                                 </div>

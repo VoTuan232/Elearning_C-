@@ -1,10 +1,8 @@
 ﻿@using System.Web.Mvc
 @using BELibrary.Entity
 @model Lecture
-@{
-    ViewBag.Title = ViewBag.Key + " " + ViewBag.Element;
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
+@{ ViewBag.Title = ViewBag.Key + " " + ViewBag.Element;
+                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
 <style>
     .display-none {
         display: none;
@@ -18,13 +16,13 @@
     <h5 class="text-overflow">@ViewBag.Key @ViewBag.Element</h5>
     <!--Searchbox-->
     @*<div class="searchbox">
-        <div class="input-group custom-search-form">
-            <input type="text" class="form-control" placeholder="Search..">
-            <span class="input-group-btn">
-                <button class="text-muted" type="button"><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-    </div>*@
+            <div class="input-group custom-search-form">
+                <input type="text" class="form-control" placeholder="Search..">
+                <span class="input-group-btn">
+                    <button class="text-muted" type="button"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>*@
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <ol class="breadcrumb">
@@ -43,32 +41,30 @@
     </ul>
     <!--Tabs Content-->
 
-    <form id="form">
+    <form id="form" class="form-custom">
         <div class="tab-content">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @if (ViewBag.isEdit)
             {
-                <input type="hidden" value="true" name="isEdit" />
-                <input type="hidden" value="@Model.Id" name="Id" />
-            }
-            else
-            {
-                <input type="hidden" value="false" name="isEdit" />
-            }
+<input type="hidden" value="true" name="isEdit" />
+                <input type="hidden" value="@Model.Id" name="Id" /> }
+                            else
+                            {
+                <input type="hidden" value="false" name="isEdit" />            }
             <div id="post" class="tab-pane fade active in">
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="control-label">Tiêu đề</label>
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = 250 } })
+                                <div class="form-group required">
+                                    <label class="control-label">Tiêu đề (max 190 Character)</label>
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = 190 } })
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-5">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="control-label">Video</label>
                                     <div class="input-group date">
                                         @Html.EditorFor(model => model.UrlVideo, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = 250 } })
@@ -76,24 +72,25 @@
                                             <i class="fa fa-upload fa-lg"></i>
                                         </span>
                                     </div>
-                                    @*@if (ViewBag.isEdit)
+                                    @if (ViewBag.isEdit)
                                     {
-                                        <video controls style="width:100%;padding-top: 10px;">
-                                            <source id="urlVideo" src="@Model.UrlVideo" type="video/mp4">
-                                            Your browser does not support HTML5 video.
-                                        </video>
-                                    }
-                                    else
-                                    {
-                                        <video style="width:100%;padding-top: 10px;" controls class="display-none" id="videoTag">
-                                            <source id="urlVideo" src="#" type="video/mp4">
-                                            Your browser does not support HTML5 video.
-                                        </video>
-                                    }*@
+                        @* <video controls style="width:100%;padding-top: 10px;">
+                            <source id="urlVideo" src="@Model.UrlVideo" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                        </video> } *@
+                    else
+                    { @*<video style="width:100%;padding-top: 10px;" controls class="" id="videoTag">
+                                <source id="urlVideo" src="#" type="video/mp4, video/ogg, video/webm">
+                                Your browser does not support HTML5 video.
+                            </video>*@
+                                    <video id="videoPlayerNew" class="video-js vjs-default-skin vjs-controls-enabled" poster="http://camendesign.com/code/video_for_everybody/poster.jpg" data-setup="{}" controls="">
+                                        <source src="/FileUploads/files/2020-02-10_18-40-46(1).mp4" type="video/mp4">
+                                        <p class="vjs-no-js">Javascript was disabled or not supported</p>
+                                    </video>}
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="control-label">Khóa học</label>
                                     @Html.DropDownList("SubjectId", (SelectList)ViewBag.Subject, "---Select---", new { @class = "form-control", @required = "required" })
                                 </div>
@@ -115,13 +112,13 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="control-label">Kiểm tra</label>
-                                    @Html.CheckBoxFor(model => model.IsTest, new { htmlAttributes = new { @class = "form-control"} })
+                                    @Html.CheckBoxFor(model => model.IsTest, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
                             </div>
                             <div class="col-sm-4 is-test">
                                 <div class="form-group">
                                     <label class="control-label">Tiêu đề test</label>
-                                    @Html.EditorFor(model => model.TestTitle, new { htmlAttributes = new { @class = "form-control" , @maxlength = 250 } })
+                                    @Html.EditorFor(model => model.TestTitle, new { htmlAttributes = new { @class = "form-control", @maxlength = 250 } })
                                 </div>
                             </div>
                             <div class="col-sm-4 is-test">
@@ -158,7 +155,7 @@
     <script>
         $(document).ready(function () {
             function init() {
-                $("#IsTest").change(function() {
+                $("#IsTest").change(function () {
                     const check = $(this).is(":checked");
                     check ? $(".is-test").show() : $(".is-test").hide();
                 });

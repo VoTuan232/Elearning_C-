@@ -1,7 +1,7 @@
 ﻿form.form-custom .form-group.required label:not(.error)::before {
     content: '*';
     position: absolute;
-    right: -.5rem;
+    right: -8px;
     top: 0;
     color: #FF3700;
 }
