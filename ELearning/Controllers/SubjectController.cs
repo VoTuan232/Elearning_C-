@@ -43,9 +43,10 @@ namespace ELearning.Controllers
             }
             using (var workScope = new UnitOfWork(new ELearningDBContext()))
             {
-                var includes = new Expression<Func<Subject, object>>[1];
-                includes[0] = x => x.Course;
-                var items = workScope.Subjects.Include(includes).Where(x => x.Status).ToList();
+                //var includes = new Expression<Func<Subject, object>>[1];
+                //includes[0] = x => x.Course;
+                //var listData = workScope.Courses.Query(x => x.Status).OrderByDescending(x => x.ModifiedDate).Where(x => x.Status).ToList();
+                var items = workScope.Subjects.Query(x => x.Status).OrderByDescending(x => x.ModifiedDate).Where(x => x.Status).ToList();
 
                 var q = from mt in items
                         where (!string.IsNullOrEmpty(keyword) && mt.Name.ToLower().Contains(keyword.ToLower()))

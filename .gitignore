@@ -1,5 +1,6 @@
 ELearning/bin/
 ELearning/bin
+ELearning\bin
 ./ELearning/bin
 ELearning/obj
 ELearning/obj/
@@ -16,3 +17,9 @@ bld/
 [Oo]bj
 [Oo]out/
 BELibrary/bin/Release/
+ELearning/bin/
+ELearning/bin/*
+/ELearning/bin/*
+/ELearning/bin/
+bin
+obj
