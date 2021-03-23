@@ -45,10 +45,9 @@ namespace ELearning.Controllers
             {
                 //var includes = new Expression<Func<Subject, object>>[1];
                 //includes[0] = x => x.Course;
-                //var listData = workScope.Courses.Query(x => x.Status).OrderByDescending(x => x.ModifiedDate).Where(x => x.Status).ToList();
-                var items = workScope.Subjects.Query(x => x.Status).OrderByDescending(x => x.ModifiedDate).Where(x => x.Status).ToList();
-
-                var q = from mt in items
+                //var items = workScope.Subjects.Include(includes).Where(x => x.Status).ToList();
+                var listData = workScope.Subjects.Query(x => x.Status).Where(x => x.Status).ToList();
+                var q = from mt in listData
                         where (!string.IsNullOrEmpty(keyword) && mt.Name.ToLower().Contains(keyword.ToLower()))
                           || (!string.IsNullOrEmpty(keyword) && mt.Description.ToLower().Contains(keyword.ToLower()))
                           || (!string.IsNullOrEmpty(keyword) && (mt.Content??"").ToLower().Contains(keyword.ToLower()))
@@ -57,9 +56,18 @@ namespace ELearning.Controllers
                 var related = workScope.Subjects.GetAll().Where(x => x.Status).OrderByDescending(x => x.ModifiedDate).Take(3).ToList();
                 ViewBag.Related = related;
 
+                var items = q.Select(x => new Subject
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Image = x.Image,
+                    Description = x.Description,
+                    Course = x.Course
+                });
+
                 var pageNumber = (page ?? 1);
                 const int pageSize = 4;
-                var result = q.ToPagedList(pageNumber, pageSize);
+                var result = items.ToPagedList(pageNumber, pageSize);
 
                 return View(result);
             }
