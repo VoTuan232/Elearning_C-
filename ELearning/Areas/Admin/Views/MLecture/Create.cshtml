@@ -2,7 +2,8 @@
 @using BELibrary.Entity
 @model Lecture
 @{ ViewBag.Title = ViewBag.Key + " " + ViewBag.Element;
-                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
 <style>
     .display-none {
         display: none;
@@ -117,13 +118,13 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="control-label">Kiểm tra</label>
+                                    <label for="TestTitle" class="control-label">Kiểm tra</label>
                                     @Html.CheckBoxFor(model => model.IsTest, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
                             </div>
                             <div class="col-sm-4 is-test">
                                 <div class="form-group">
-                                    <label class="control-label">Tiêu đề test</label>
+                                    <label for="FileTest" class="control-label">Tiêu đề test</label>
                                     @Html.EditorFor(model => model.TestTitle, new { htmlAttributes = new { @class = "form-control", @maxlength = 250 } })
                                 </div>
                             </div>
@@ -159,10 +160,43 @@
 @section Scripts {
 
     <script>
+        var configs = [
+            {
+                "id": "Name",
+                //"rq": true,
+                "maxLength": 250,
+                "name": "Tiêu đề"
+            },
+            {
+                "id": "Image",
+                "rq": true,
+                "maxLength": 250,
+                "name": "Ảnh đại diện"
+            },
+            {
+                "id": "Description",
+                "rq": true,
+                "maxLength": 500,
+                "name": "Mô tả ngắn"
+            },
+            {
+                "id": "Requirements",
+                "rq": true,
+                "maxLength": 500,
+                "name": "Yêu cầu"
+            }
+        ];
         $(document).ready(function () {
             function init() {
                 $("#IsTest").change(function () {
                     const check = $(this).is(":checked");
+                    if (check) {
+                        $('#TestTitle').prop('required', true);
+                        $('#FileTest').prop('required', true);
+                    } else {
+                        $('#TestTitle').prop('required', false);
+                        $('#FileTest').prop('required', false);
+                    }
                     check ? $(".is-test").show() : $(".is-test").hide();
                 });
 
@@ -185,63 +219,46 @@
 
                 //    }
                 //});
-                $(".btn-save").click(function () {
-                    var configs = [
-                        {
-                            "id": "Name",
-                            //"rq": true,
-                            "maxLength": 250,
-                            "name": "Tiêu đề"
-                        },
-                        {
-                            "id": "Image",
-                            "rq": true,
-                            "maxLength": 250,
-                            "name": "Ảnh đại diện"
-                        },
-                        {
-                            "id": "Description",
-                            "rq": true,
-                            "maxLength": 500,
-                            "name": "Mô tả ngắn"
-                        },
-                        {
-                            "id": "Requirements",
-                            "rq": true,
-                            "maxLength": 500,
-                            "name": "Yêu cầu"
-                        }
-                    ];
-                    for (var i = 0; i < configs.length; i++) {
-                        if (configs[i].rq) {
-                            var selecter = $('#' + configs[i].id);
-                            if (selecter.val() == "") {
-                                $.niftyNoty({
-                                    type: 'danger',
-                                    icon: 'fa fa-minus',
-                                    message: '<b>' + configs[i].name + '</b> không được trống',
-                                    container: 'floating',
-                                    timer: 3000
-                                });
-                                break;
-                            }
-                            if (selecter.val() && selecter.val().length > configs[i].maxLength) {
-                                $.niftyNoty({
-                                    type: 'danger',
-                                    icon: 'fa fa-minus',
-                                    message: '<b>' + configs[i].name + ': ' + selecter.val().length + '</b> quá dài (Tiêu chuẩn: ' + configs[i].maxLength + ')',
-                                    container: 'floating',
-                                    timer: 3000
-                                });
-                                break;
-                            }
-                        }
-                    }
-                });
             }
 
             init();
         });
+        function onClickTest() {
+            if ($('#IsTest').val()) {
+                $('#TestTitle').prop('required', true);
+            } else {
+            }
+        }
+
+        $(".btn-save").click(function () {
+            for (var i = 0; i < configs.length; i++) {
+                if (configs[i].rq) {
+                    var selecter = $('#' + configs[i].id);
+                    if (selecter.val() == "") {
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-minus',
+                            message: '<b>' + configs[i].name + '</b> không được trống',
+                            container: 'floating',
+                            timer: 3000
+                        });
+                        break;
+                    }
+                    if (selecter.val() && selecter.val().length > configs[i].maxLength) {
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-minus',
+                            message: '<b>' + configs[i].name + ': ' + selecter.val().length + '</b> quá dài (Tiêu chuẩn: ' + configs[i].maxLength + ')',
+                            container: 'floating',
+                            timer: 3000
+                        });
+                        break;
+                    }
+                }
+            }
+        });
+
+
         function testFunction() {
             alert("Data loaded");
         }
