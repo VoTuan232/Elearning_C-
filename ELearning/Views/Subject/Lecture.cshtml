@@ -55,98 +55,103 @@
             <div class="row">
                 <div class="col-md-8 blog-pull-right">
                     <div class="single-service">
-                        <div itemscope itemtype="https://schema.org/VideoObject" style="width: 100%; padding-top: 10px;"> 
-                            <script src="@Model.UrlVideo"></script>
-                        </div>
-                        
+                        @{ if (Model.UrlVideo == "https://cdn.jwplayer.com/players/64L7PCMQ-ruGo2kE5.js")
+                            {
+                                <div itemscope itemtype="https://schema.org/VideoObject" style="width: 100%; padding-top: 10px;">
+                                    <script src="@Model.UrlVideo"></script>
+                                </div> 
+                            }
+                            else
+                            {
+                            <video controls style="width:100%;height: 420px;padding-top: 10px;">
+                                <source id="urlVideo" src="@Model.UrlVideo" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                                }
+                            }
+
                         <h3 class="text-theme-colored">@Model.Name</h3>
                         <h4 class="line-bottom mt-20 mb-20 text-theme-colored">Chi tiết</h4>
                         <ul id="myTab" class="nav nav-tabs boot-tabs">
                             <li class="active"><a href="#comment" data-toggle="tab">Bình luận</a></li>
                             @if (Model.IsTest)
                             {
-                                <li><a href="#test" data-toggle="tab"> Bài kiểm tra <span class="label label-info">New</span></a> </li>
-                            }
+                    <li><a href="#test" data-toggle="tab"> Bài kiểm tra <span class="label label-info">New</span></a> </li>}
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane ade in active" id="comment">
                                 @if (comments != null)
                                 {
-                                    <ul class="comment-list" id="listComment">
-                                        @foreach (var parent in comments)
-                                        {
-                                            <li id="del_@parent.Id">
-                                                <div class="media comment-author" style="padding-top: 16px;">
-                                                    <a class="media-left pull-left flip" href="#">
-                                                        <img class="img-thumbnail" style="width: 85px;" src="@parent.AvataUrl" alt="">
-                                                    </a>
-                                                    <div class="media-body" id="content_@parent.Id">
-                                                        @if (parent.Username == CookiesManage.GetUser().Username)
-                                                        {
-                                                            <button type="button" class="close" aria-label="Close" onclick="edit(@parent.Id)">
-                                                                <span aria-hidden="true" class="fa fa-pencil"> </span>
-                                                            </button>
-                                                            <button type="button" class="close" aria-label="Close" style="margin-right: 8px;" onclick="del(@parent.Id)">
-                                                                <span aria-hidden="true" class="fa fa-trash"> </span>
-                                                            </button>
-                                                        }
+                    <ul class="comment-list" id="listComment">
+                        @foreach (var parent in comments)
+                        {
+                    <li id="del_@parent.Id">
+                        <div class="media comment-author" style="padding-top: 16px;">
+                            <a class="media-left pull-left flip" href="#">
+                                <img class="img-thumbnail" style="width: 85px;" src="@parent.AvataUrl" alt="">
+                            </a>
+                            <div class="media-body" id="content_@parent.Id">
+                                @if (parent.Username == CookiesManage.GetUser().Username)
+                                {
+                    <button type="button" class="close" aria-label="Close" onclick="edit(@parent.Id)">
+                        <span aria-hidden="true" class="fa fa-pencil"> </span>
+                    </button>
+                                            <button type="button" class="close" aria-label="Close" style="margin-right: 8px;" onclick="del(@parent.Id)">
+                                                <span aria-hidden="true" class="fa fa-trash"> </span>
+                                            </button>}
 
-                                                        <div class="title" style="display: flex">
-                                                            <h5 class="media-heading comment-heading" style="padding-right: 5px; color: #337ab7;">
-                                                                @parent.FullName (@parent.Username)
-                                                            </h5>
-                                                            <div class="comment-date" style="font-size: 10px; line-height: 30px;" id="editTime_@parent.Id">@parent.Time.ToString("dd/MM/yyyy HH:mm")</div>
-                                                        </div>
+                                <div class="title" style="display: flex">
+                                    <h5 class="media-heading comment-heading" style="padding-right: 5px; color: #337ab7;">
+                                        @parent.FullName (@parent.Username)
+                                    </h5>
+                                    <div class="comment-date" style="font-size: 10px; line-height: 30px;" id="editTime_@parent.Id">@parent.Time.ToString("dd/MM/yyyy HH:mm")</div>
+                                </div>
 
-                                                        <p id="editContent_@parent.Id">
-                                                            @parent.Content
-                                                        </p>
+                                <p id="editContent_@parent.Id">
+                                    @parent.Content
+                                </p>
 
-                                                        <a class="replay-icon pull-right text-theme-colored" href="javascript:void(0)" onclick="reply('@parent.Id')">
-                                                            <i class="fa fa-reply text-theme-colored"></i> Reply
-                                                        </a>
-                                                        <div class="row reply" id="reply_@parent.Id">
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                        @foreach (var chill in parent.Chills)
-                                                        {
-                                                            <div class="media comment-author nested-comment" id="del_@chill.Id">
-                                                                <a href="#" class="media-left pull-left flip">
-                                                                    <img alt="" src="@chill.AvataUrl" style="width: 85px;" class="img-thumbnail">
-                                                                </a>
-                                                                <div class="media-body p-20 bg-lighter">
+                                <a class="replay-icon pull-right text-theme-colored" href="javascript:void(0)" onclick="reply('@parent.Id')">
+                                    <i class="fa fa-reply text-theme-colored"></i> Reply
+                                </a>
+                                <div class="row reply" id="reply_@parent.Id">
+                                </div>
+                                <div class="clearfix"></div>
+                                @foreach (var chill in parent.Chills)
+                                {
+                    <div class="media comment-author nested-comment" id="del_@chill.Id">
+                        <a href="#" class="media-left pull-left flip">
+                            <img alt="" src="@chill.AvataUrl" style="width: 85px;" class="img-thumbnail">
+                        </a>
+                        <div class="media-body p-20 bg-lighter">
 
-                                                                    @if (chill.Username == CookiesManage.GetUser().Username)
-                                                                    {
-                                                                        <button type="button" class="close" aria-label="Close" onclick="edit(@chill.Id)">
-                                                                            <span aria-hidden="true" class="fa fa-pencil"> </span>
-                                                                        </button>
-                                                                        <button type="button" class="close" aria-label="Close" style="margin-right: 8px;" onclick="del(@chill.Id)">
-                                                                            <span aria-hidden="true" class="fa fa-trash"> </span>
-                                                                        </button>
-                                                                    }
+                            @if (chill.Username == CookiesManage.GetUser().Username)
+                            {
+                    <button type="button" class="close" aria-label="Close" onclick="edit(@chill.Id)">
+                        <span aria-hidden="true" class="fa fa-pencil"> </span>
+                    </button>
+                                                <button type="button" class="close" aria-label="Close" style="margin-right: 8px;" onclick="del(@chill.Id)">
+                                                    <span aria-hidden="true" class="fa fa-trash"> </span>
+                                                </button>}
 
-                                                                    <div class="title" style="display: flex">
-                                                                        <h5 class="media-heading comment-heading" style="padding-right: 5px; color: #337ab7;">
-                                                                            @chill.FullName (@chill.Username)
-                                                                        </h5>
-                                                                        <div class="comment-date" style="font-size: 10px; line-height: 30px;" id="editTime_@chill.Id">@chill.Time.ToString("dd/MM/yyyy HH:mm")</div>
-                                                                    </div>
-                                                                    <p id="editContent_@chill.Id">
-                                                                        @chill.Content
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        }
-                                    </ul>
+                            <div class="title" style="display: flex">
+                                <h5 class="media-heading comment-heading" style="padding-right: 5px; color: #337ab7;">
+                                    @chill.FullName (@chill.Username)
+                                </h5>
+                                <div class="comment-date" style="font-size: 10px; line-height: 30px;" id="editTime_@chill.Id">@chill.Time.ToString("dd/MM/yyyy HH:mm")</div>
+                            </div>
+                            <p id="editContent_@chill.Id">
+                                @chill.Content
+                            </p>
+                        </div>
+                    </div>}
+                            </div>
+                        </div>
+                    </li>}
+                    </ul>
                                     <div class="pagination-style1 clearfix text-right">
                                         @Html.PagedListPager(comments, page => "/subject/lecture?id=" + Model.Id + "&cpage=" + page + "#comment")
-                                    </div>
-                                }
+                                    </div>}
                                 <hr />
                                 <div class="comment-box">
                                     <div class="row">
@@ -173,24 +178,23 @@
                             </div>
                             @if (Model.IsTest)
                             {
-                                <div class="tab-pane ade in" id="test">
-                                    <div class="pricing-table maxwidth400">
-                                        <div class="font-36 pl-20 bg-theme-colored text-white text-center pr-20 p-10">
-                                            @Model.TestTitle
-                                        </div>
-                                        <div class=" bg-white border-1px p-30 pt-20 pb-20">
-                                            <h3 class="package-type font-28 m-0 text-black">Hoàn thành bài test</h3>
-                                            <ul class="table-list list-icon theme-colored pb-0">
-                                                <li><i class="fa fa-check"></i>Tải file <a href="@Model.FileTest" class="btn btn-success">Tải xuống</a></li>
-                                                <li><i class="fa fa-check"></i>Làm bài test</li>
-                                                <li><i class="fa fa-check"></i>Kiểm tra định dạng và file</li>
-                                                <li><i class="fa fa-check"></i>Gửi file lên hệ thống</li>
-                                            </ul>
-                                        </div>
-                                        <a href="/subject/SubmitTest?lectureId=@Model.Id" class="btn btn-lg btn-theme-colored text-uppercase btn-block pt-20 pb-20 btn-flat">Gửi ngay</a>
-                                    </div>
-                                </div>
-                            }
+                    <div class="tab-pane ade in" id="test">
+                        <div class="pricing-table maxwidth400">
+                            <div class="font-36 pl-20 bg-theme-colored text-white text-center pr-20 p-10">
+                                @Model.TestTitle
+                            </div>
+                            <div class=" bg-white border-1px p-30 pt-20 pb-20">
+                                <h3 class="package-type font-28 m-0 text-black">Hoàn thành bài test</h3>
+                                <ul class="table-list list-icon theme-colored pb-0">
+                                    <li><i class="fa fa-check"></i>Tải file <a href="@Model.FileTest" class="btn btn-success">Tải xuống</a></li>
+                                    <li><i class="fa fa-check"></i>Làm bài test</li>
+                                    <li><i class="fa fa-check"></i>Kiểm tra định dạng và file</li>
+                                    <li><i class="fa fa-check"></i>Gửi file lên hệ thống</li>
+                                </ul>
+                            </div>
+                            <a href="/subject/SubmitTest?lectureId=@Model.Id" class="btn btn-lg btn-theme-colored text-uppercase btn-block pt-20 pb-20 btn-flat">Gửi ngay</a>
+                        </div>
+                    </div>}
                         </div>
                     </div>
                 </div>

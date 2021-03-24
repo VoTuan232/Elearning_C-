@@ -56,7 +56,6 @@ D:\ELearning\BELibrary\bin\Debug\EntityFramework.dll
 D:\ELearning\BELibrary\bin\Debug\EntityFramework.SqlServer.dll
 D:\ELearning\BELibrary\bin\Debug\EntityFramework.xml
 D:\ELearning\BELibrary\bin\Debug\EntityFramework.SqlServer.xml
-D:\ELearning\BELibrary\obj\Debug\BELibrary.csprojAssemblyReference.cache
 D:\ELearning\BELibrary\obj\Debug\BELibrary.Migrations.Init_Database.resources
 D:\ELearning\BELibrary\obj\Debug\BELibrary.Migrations.Change_Gender_User_Table.resources
 D:\ELearning\BELibrary\obj\Debug\BELibrary.Migrations.Add_LectureId_To_StudentTest_Table.resources

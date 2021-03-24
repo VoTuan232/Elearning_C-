@@ -74,19 +74,25 @@
                                     </div>
                                     @if (ViewBag.isEdit)
                                     {
-                        @* <video controls style="width:100%;padding-top: 10px;">
-                            <source id="urlVideo" src="@Model.UrlVideo" type="video/mp4">
-                            Your browser does not support HTML5 video.
-                        </video> } *@
-                    else
-                    { @*<video style="width:100%;padding-top: 10px;" controls class="" id="videoTag">
-                                <source id="urlVideo" src="#" type="video/mp4, video/ogg, video/webm">
-                                Your browser does not support HTML5 video.
-                            </video>*@
-                                    <video id="videoPlayerNew" class="video-js vjs-default-skin vjs-controls-enabled" poster="http://camendesign.com/code/video_for_everybody/poster.jpg" data-setup="{}" controls="">
-                                        <source src="/FileUploads/files/2020-02-10_18-40-46(1).mp4" type="video/mp4">
-                                        <p class="vjs-no-js">Javascript was disabled or not supported</p>
-                                    </video>}
+                                        <video controls style="width:100%;height: 420px;padding-top: 10px;" id="videoTag">
+                                            <source id="urlVideo" src="@Model.UrlVideo" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video> }
+                                    else
+                                    {
+                                        <video style="width:100%;height: 420px;padding-top: 10px;" controls class="display-none" id="videoTag">
+                                            <source id="urlVideo" src="#" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                        @*<video style="width:100%;padding-top: 10px;" controls class="" id="videoTag">
+                <source id="urlVideo" src="#" type="video/mp4, video/ogg, video/webm">
+                Your browser does not support HTML5 video.
+            </video>
+            <video id="videoPlayerNew" class="video-js vjs-default-skin vjs-controls-enabled" poster="http://camendesign.com/code/video_for_everybody/poster.jpg" data-setup="{}" controls="">
+                <source src="/FileUploads/files/2020-02-10_18-40-46(1).mp4" type="video/mp4">
+                <p class="vjs-no-js">Javascript was disabled or not supported</p>
+            </video>*@
+                                    }
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -164,19 +170,21 @@
                 const check = $("#IsTest").is(":checked");
                 check ? $(".is-test").show() : $(".is-test").hide();
 
-                $("#UrlVideo").change(function () {
-                    var imgSrc = $("input[name=UrlVideo]").val();
-                    if (imgSrc != "") {
-                        $("#urlVideo").attr("src", imgSrc);
-                        var vid = $("video")[0];
-                        vid.load();
-                        vid.addEventListener('loadeddata', function (err) {
-                            $("#videoTag").attr('class', 'display-block');
-                            getTimeVideo();
-                        }, false);
+                //$("#UrlVideo").change(function () {
+                //    console.log('url video change');
+                //    var imgSrc = $("input[name=UrlVideo]").val();
+                //    if (imgSrc != "") {
+                //        $("#urlVideo").attr("src", imgSrc);
+                //        var vid = $("video")[0];
+                //        vid.load();
+                //        vid.addEventListener('loadeddata', function (err) {
+                //            console.log('come load data done')
+                //            //$("#videoTag").attr('class', 'display-block');
+                //            getTimeVideo();
+                //        }, false);
 
-                    }
-                });
+                //    }
+                //});
                 $(".btn-save").click(function () {
                     var configs = [
                         {
@@ -234,20 +242,59 @@
 
             init();
         });
+        function testFunction() {
+            alert("Data loaded");
+        }
 
         function ChooseImg() {
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (fileUrl) {
-                $("#urlVideo").attr("src", fileUrl);
-                $("#UrlVideo").val(fileUrl);
-                var vid = $("video")[0];
-                vid.load();
-                vid.addEventListener('loadeddata', function () {
-                    $("#videoTag").attr('class', 'display-block');
-                    getTimeVideo();
-                }, false);
-            }
-            finder.popup();
+            CKFinder.popup({
+                chooseFiles: true,
+                width: 1000,
+                height: 600,
+                memoryLimit: 128,
+                uploadMaxFilesize: 10,
+                selectActionFunction: function (fileUrl) {
+                    $("#urlVideo").attr("src", fileUrl);
+                    $("#UrlVideo").val(fileUrl);
+                    var imgSrc = $("input[name=UrlVideo]").val();
+                    if (imgSrc != "") {
+                        console.log('come load video', document.getElementById('videoTag')[0]);
+                        $("video")[0].load();
+                        //var vid = $("video")[0];
+                        //document.getElementById('videoTag').on('loadeddata', function (event) {
+                        //    console.log('Yay! The readyState just increased to  ' +
+                        //        'HAVE_CURRENT_DATA or greater for the first time.');
+                        //});
+                        $("video")[0].addEventListener('loadeddata', function() {
+                            console.log('come load data done');
+                            //$("#videoTag").attr('class', 'display-block');
+                            getTimeVideo();
+                        });
+                    }
+                    //var vid = $("video")[0];
+                    //vid.load();
+                    //vid.addeventlistener('loadeddata', function () {
+                    //    $("#videotag").attr('class', 'display-block');
+                    //    gettimevideo();
+                    //}, false);
+                }
+            });
+
+            //var finder = CKFinder.widget('ckfinder-widget', {
+            //    // Old setting was configPath: 'config.js?timestamp=20160101'
+            //    configPath: 'config.js?timestamp=20160808'
+            //});;
+            //finder.selectActionFunction = function (fileUrl) {
+            //    $("#urlVideo").attr("src", fileUrl);
+            //    $("#UrlVideo").val(fileUrl);
+            //    var vid = $("video")[0];
+            //    vid.load();
+            //    vid.addEventListener('loadeddata', function () {
+            //        $("#videoTag").attr('class', 'display-block');
+            //        getTimeVideo();
+            //    }, false);
+            //}
+            //finder.popup();
 
         }
         function ChooseFile() {
