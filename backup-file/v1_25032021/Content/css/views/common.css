@@ -1,0 +1,11 @@
+﻿form.form-custom .form-group.required label:not(.error)::before {
+    content: '*';
+    position: absolute;
+    right: -8px;
+    top: 0;
+    color: #FF3700;
+}
+
+form.form-custom .form-group.required label{
+    position: relative;
+}
