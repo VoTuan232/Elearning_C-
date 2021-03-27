@@ -165,15 +165,16 @@ namespace ELearning.Controllers
             }
         }
 
-        public ActionResult SendTest(int lectureId, HttpPostedFileBase testFile)
+        [HttpPost]
+        public JsonResult SendTest(int lectureId, HttpPostedFileBase testFile)
         {
             if (!CookiesManage.Logined())
-                return Redirect("/account/login?ReturnUrl=" + System.Web.HttpContext.Current.Request.Url.PathAndQuery);
+                return Json(new { status = false, mess = "Chưa đăng nhập" });
             var user = CookiesManage.GetUser();
             using (var workScope = new UnitOfWork(new ELearningDBContext()))
             {
                 var lecture = workScope.Lectures.FirstOrDefault(x => x.Id == lectureId);
-                if (lecture == null || !lecture.IsTest) return RedirectToAction("Index", "Subject");
+                if (lecture == null || !lecture.IsTest)  return Json(new { status = false, mess = "Error 1" });
 
                 var studentTest = new StudentTest
                 {
@@ -182,7 +183,7 @@ namespace ELearning.Controllers
                 try
                 {
                     if (testFile?.FileName != null)
-                    {
+                    {     
                         if (testFile.ContentLength >= FileKey.MaxTestLength)
                         {
                             return Json(new { status = false, mess = L.T("FileMaxLength") });
@@ -192,7 +193,7 @@ namespace ELearning.Controllers
                         {
                             var fileExt = splitFilename[splitFilename.Length - 1];
 
-                            //Check ext
+                            // //Check ext
 
                             if (FileKey.FileTestExtensionApprove().Any(x => x == fileExt))
                             {
@@ -204,12 +205,12 @@ namespace ELearning.Controllers
                             }
                             else
                             {
-                                return RedirectToAction("Error", "Home");
+                                return Json(new { status = false, mess = "Error: Extension don't support!" });
                             }
                         }
                         else
                         {
-                            return RedirectToAction("Error", "Home");
+                            return Json(new { status = false, mess = "Error: File dont have content." });
                         }
                     }
 
@@ -219,14 +220,19 @@ namespace ELearning.Controllers
 
                     workScope.StudentTests.Add(studentTest);
                     workScope.Complete();
-                    return View();
+                    return Json(new { status = true, mess = "Send test success!" });
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(ex);
-                    return RedirectToAction("Error", "Home");
+                   return Json(new { status = false, mess = "Error 4" });
                 }
             }
+        }
+
+        [HttpGet]
+        public ActionResult SendTest()
+        {
+            return View();
         }
 
         private IPagedList<CommentDto> GetComment(int? page)
