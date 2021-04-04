@@ -119,7 +119,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>File Upload</label>
-                                                <input name="testFile" type="file" multiple data-show-upload="false" data-show-caption="true">
+                                                <input name="testFile" id="testFile" type="file" data-show-upload="false" data-show-caption="true">
                                                 <small>Maximum upload file size: 12 MB</small>
                                             </div>
                                             <div class="form-group">
@@ -157,10 +157,23 @@
     <script src="~/Content/js/bootstrap-rating/bootstrap-rating.min.js"></script>
     <script src="~/Areas/Admin/lib/plugins/toastr/toastr.min.js"></script>
     <script>
-        console.log('submit test 3')
+        console.log('submit test 4');
         $(document).ready(function () {
             $('#form').submit(function (e) {
                 e.preventDefault();
+                if (!$('#testFile').val()) {
+                     toastr.error('Lỗi: chưa có tệp nào được chọn');
+                     return;
+                }
+                const size = $('#testFile')[0].files[0].size;
+                const maxium = 12 * Math.pow(2, 10) * Math.pow(2, 10);
+                if (size > maxium) {
+                    toastr.error('Lỗi: dung lượng tệp vượt quá giới hạn');
+                    return;
+                } else if (size == 0) {
+                    toastr.error('Lỗi: nội dung tệp không được rỗng');
+                    return;
+                }
                 var formData = new FormData(this);
                 $.ajax({
                     url: '@Url.Action("SendTest")',
@@ -170,26 +183,26 @@
                             'input:hidden[name="__RequestVerificationToken"]'
                         ).val(),
                     },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     data: formData,
                     success: function (response) {
                         if (response.status) {
                             console.log('success');
                             console.log(response);
                             toastr.success(response.mess);
-                            @* setTimeout(function () {
+                            setTimeout(function () {
                                 window.location.href = '/Subject/SendTest';
-                            }, 3000); *@
+                            }, 3000);
                         } else {
                             console.log('error');
                             console.log(response.mess);
-                            toastr.error('Error Server!');
+                            toastr.error(response.mess);
                         }
                     },
-                    cache: false,
-                    contentType: false,
-                    processData: false,
                     error: function (err) {
-                        console.log('Catch here')
+                        toastr.error(err);
                     }
                 });
             });

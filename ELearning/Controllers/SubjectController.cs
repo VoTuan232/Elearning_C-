@@ -174,7 +174,7 @@ namespace ELearning.Controllers
             using (var workScope = new UnitOfWork(new ELearningDBContext()))
             {
                 var lecture = workScope.Lectures.FirstOrDefault(x => x.Id == lectureId);
-                if (lecture == null || !lecture.IsTest)  return Json(new { status = false, mess = "Error 1" });
+                if (lecture == null || !lecture.IsTest)  return Json(new { status = false, mess = "Lỗi: Không gửi được bài học này!" });
 
                 var studentTest = new StudentTest
                 {
@@ -205,12 +205,12 @@ namespace ELearning.Controllers
                             }
                             else
                             {
-                                return Json(new { status = false, mess = "Error: Extension don't support!" });
+                                return Json(new { status = false, mess = "Lỗi: không hỗ trợ định dạng này!" });
                             }
                         }
                         else
                         {
-                            return Json(new { status = false, mess = "Error: File dont have content." });
+                            return Json(new { status = false, mess = "Lỗi: không có nội dung" });
                         }
                     }
 
@@ -220,11 +220,11 @@ namespace ELearning.Controllers
 
                     workScope.StudentTests.Add(studentTest);
                     workScope.Complete();
-                    return Json(new { status = true, mess = "Send test success!" });
+                    return Json(new { status = true, mess = "Gửi tài thành công" });
                 }
                 catch (Exception ex)
                 {
-                   return Json(new { status = false, mess = "Error 4" });
+                   return Json(new { status = false, mess = "Lỗi hệ thống!" });
                 }
             }
         }

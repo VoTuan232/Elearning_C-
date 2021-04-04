@@ -4,6 +4,13 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using BELibrary.Utils;
+using System.Net.Mail;
+using System.Threading;
+using System.Net;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+using System.Web;
+using System.Net.Mime;
 
 namespace ELearning.Areas.Admin.Controllers
 {
@@ -99,7 +106,7 @@ namespace ELearning.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public JsonResult CreateOrEdit(StudentTest input, bool isEdit)
+        public JsonResult CreateOrEdit(StudentTest input, bool isEdit, bool isSendMail, string LectureName)
         {
             try
             {
@@ -111,7 +118,36 @@ namespace ELearning.Areas.Admin.Controllers
                     {
                         elm.Point = input.Point;
                         elm.ReplyFile = input.ReplyFile;
-
+                        if (isSendMail)
+                        {
+                            var lecture = workScope.Lectures.FirstOrDefault(x => x.Id == input.LectureId);
+                            var client = new SmtpClient
+                            {
+                                Host = "smtp.gmail.com",
+                                Port = 587,
+                                UseDefaultCredentials = false,
+                                DeliveryMethod = SmtpDeliveryMethod.Network,
+                                Credentials =
+                            new NetworkCredential(
+                                "votuanbk2302@gmail.com",
+                                "@Vat883279"),
+                                EnableSsl = true,
+                            };
+                            var from = new MailAddress("votuanbk2302@gmail.com", "Admin Elearning");
+                            var to = new MailAddress(input.Email);
+                            var mail = new MailMessage(from, to)
+                            {
+                                Subject = "Điểm môn học!",
+                                Body = "Xin chào " + "<span style='color: red;'>" + input.Username + "</span>" + "!" + "<br/> Điểm bài học " + lecture.Name + " của bạn là: " + input.Point,
+                                IsBodyHtml = true,
+                            };
+                                Attachment data = new Attachment(
+                             Server.MapPath("~/" + input.ReplyFile),
+                             MediaTypeNames.Application.Octet);
+                            // your path may look like Server.MapPath("~/file.ABC")
+                            mail.Attachments.Add(data);
+                            client.Send(mail);
+                        }
                         workScope.StudentTests.Put(elm, elm.Id);
                         workScope.Complete();
                         return Json(new { status = true, mess = "Cập nhập thành công" });

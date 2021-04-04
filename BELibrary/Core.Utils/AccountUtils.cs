@@ -35,11 +35,11 @@ namespace BELibrary.Utils
                         DeliveryMethod = SmtpDeliveryMethod.Network,
                         Credentials =
                             new NetworkCredential(
-                                "nguyenthuha11071996@gmail.com",
-                                "hahillgautruc1107"),
+                                "votuanbk2302@gmail.com",
+                                "@Vat883279"),
                         EnableSsl = true,
                     };
-                    var from = new MailAddress("nguyenthuha11071996@gmail.com", "Admin Cửa hàng điện thoại Minh Anh");
+                    var from = new MailAddress("votuanbk2302@gmail.com", "Admin Cửa hàng điện thoại Minh Anh");
                     var to = new MailAddress(account.Email);
                     var mail = new MailMessage(from, to)
                     {
