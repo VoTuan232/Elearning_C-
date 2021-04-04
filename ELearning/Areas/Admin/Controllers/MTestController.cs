@@ -8,7 +8,6 @@ using System.Net.Mail;
 using System.Threading;
 using System.Net;
 using System.IO;
-using Microsoft.Extensions.FileProviders;
 using System.Web;
 using System.Net.Mime;
 
@@ -106,7 +105,7 @@ namespace ELearning.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public JsonResult CreateOrEdit(StudentTest input, bool isEdit, bool isSendMail, string LectureName)
+        public JsonResult CreateOrEdit(StudentTest input, bool isEdit, bool isSendMail)
         {
             try
             {
