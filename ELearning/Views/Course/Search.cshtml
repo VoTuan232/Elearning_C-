@@ -89,7 +89,12 @@
             <div class="row">
                 <!-- Pagination -->
                 <div class="pagination-style1 clearfix text-right">
-                    @Html.PagedListPager(Model, page => "/" + "course/search" + "?page=" + page)
+                    @Html.PagedListPager(Model, page => Url.Action("Search", new
+                    {
+                        keyword = Request.QueryString["keyword"],
+                        page,
+                    }))
+                    @*@Html.PagedListPager(Model, page => "/" + "course/search" + "?page=" + page)*@
                 </div>
                 <!-- Pagination END -->
                 @*<div class="col-sm-12">
