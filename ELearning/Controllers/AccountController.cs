@@ -145,7 +145,7 @@ namespace ELearning.Controllers
                 }
                 else
                 {
-                    return Json(new { status = false, mess = "Username không khả dụng" });
+                    return Json(new { status = false, mess = "Tên đăng nhập không khả dụng" });
                 }
             }
         }
